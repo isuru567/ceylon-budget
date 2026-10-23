@@ -20,6 +20,12 @@ function nextMonthStart() {
   return `${n.getFullYear()}-${pad(n.getMonth() + 1)}-01`;
 }
 
+const card = "bg-card border border-border rounded-2xl p-4 shadow-sm";
+const input =
+  "w-full border border-border rounded-lg px-3 py-2 bg-input text-fg placeholder:text-muted";
+const primary =
+  "bg-brand text-brand-fg font-semibold rounded-lg px-4 py-2 hover:opacity-90";
+
 export default function Dashboard() {
   const router = useRouter();
   const [supabase] = useState(() => createClient());
@@ -128,23 +134,25 @@ export default function Dashboard() {
   const totalExpenses = expenses.reduce((s, e) => s + e.amount, 0);
   const savings = income - totalExpenses;
 
-  const input =
-    "w-full border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-900";
-
-  if (loading) return <main className="p-10">Loading...</main>;
+  if (loading) return <main className="p-10 bg-bg text-fg">Loading...</main>;
 
   return (
-    <main className="min-h-screen bg-slate-100 text-slate-900 p-4">
+    <main className="min-h-screen bg-bg text-fg p-4">
       <div className="max-w-3xl mx-auto space-y-4">
         <div className="flex justify-between items-center">
-          <h1 className="text-xl font-bold">Monthly Budget</h1>
-          <button onClick={logout} className="border rounded-lg px-3 py-1 bg-white">
+          <h1 className="text-xl font-bold">
+            <span className="text-brand">Ceylon</span> Budget
+          </h1>
+          <button
+            onClick={logout}
+            className="border border-border rounded-lg px-3 py-1 bg-card"
+          >
             Sign out
           </button>
         </div>
 
-        <section className="bg-white rounded-2xl p-4 shadow space-y-3">
-          <h2 className="font-semibold text-green-700">Monthly income</h2>
+        <section className={`${card} space-y-3`}>
+          <h2 className="font-semibold text-good">Monthly income</h2>
           <div className="grid grid-cols-2 gap-3">
             <input
               className={input}
@@ -161,17 +169,14 @@ export default function Dashboard() {
               onChange={(e) => setOther(e.target.value)}
             />
           </div>
-          <button
-            onClick={saveIncome}
-            className="bg-amber-500 hover:bg-amber-600 font-semibold rounded-lg px-4 py-2"
-          >
+          <button onClick={saveIncome} className={primary}>
             Save income
           </button>
-          {msg && <p className="text-sm">{msg}</p>}
+          {msg && <p className="text-sm text-muted">{msg}</p>}
         </section>
 
-        <section className="bg-white rounded-2xl p-4 shadow space-y-3">
-          <h2 className="font-semibold text-red-700">Expenses (no bill)</h2>
+        <section className={`${card} space-y-3`}>
+          <h2 className="font-semibold text-bad">Expenses (no bill)</h2>
           <div className="grid grid-cols-2 gap-3">
             <input
               className={input}
@@ -198,21 +203,18 @@ export default function Dashboard() {
               </option>
             ))}
           </select>
-          <button
-            onClick={addExpense}
-            className="bg-amber-500 hover:bg-amber-600 font-semibold rounded-lg px-4 py-2"
-          >
+          <button onClick={addExpense} className={primary}>
             Add expense
           </button>
 
           {expenses.map((e) => (
             <div
               key={e.id}
-              className="flex justify-between items-center border-t pt-2"
+              className="flex justify-between items-center border-t border-border pt-2"
             >
               <div>
                 {e.name}
-                <div className="text-xs text-slate-500">
+                <div className="text-xs text-muted">
                   {categoryLabel(e.category)}
                 </div>
               </div>
@@ -220,7 +222,7 @@ export default function Dashboard() {
                 <b>{money(e.amount)}</b>
                 <button
                   onClick={() => removeExpense(e.id)}
-                  className="text-red-600 text-lg"
+                  className="text-bad text-lg"
                 >
                   ×
                 </button>
@@ -229,19 +231,19 @@ export default function Dashboard() {
           ))}
         </section>
 
-        <section className="bg-white rounded-2xl p-4 shadow space-y-2">
+        <section className={`${card} space-y-2`}>
           <h2 className="font-semibold">Summary</h2>
           <div className="flex justify-between">
             <span>Total income</span>
-            <b className="text-green-700">{money(income)}</b>
+            <b className="text-good">{money(income)}</b>
           </div>
           <div className="flex justify-between">
             <span>Total expenses</span>
-            <b className="text-red-700">{money(totalExpenses)}</b>
+            <b className="text-bad">{money(totalExpenses)}</b>
           </div>
-          <div className="flex justify-between text-lg border-t pt-2">
+          <div className="flex justify-between text-lg border-t border-border pt-2">
             <span>Net savings</span>
-            <b className={savings >= 0 ? "text-green-700" : "text-red-700"}>
+            <b className={savings >= 0 ? "text-good" : "text-bad"}>
               {money(savings)}
             </b>
           </div>

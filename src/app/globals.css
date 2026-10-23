@@ -1,26 +1,68 @@
 @import "tailwindcss";
 
+/* ---------- Light theme (default) ---------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --bg: #f4f6f8;
+  --card: #ffffff;
+  --fg: #14202b;
+  --muted: #64727f;
+  --border: #dde3e8;
+  --input: #f0f3f5;
+  --brand: #c9930a;
+  --brand-fg: #14202b;
+  --good: #14925a;
+  --bad: #d23f4f;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* ---------- Dark theme: follows the device setting ---------- */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0b1118;
+    --card: #121b25;
+    --fg: #e9eef3;
+    --muted: #8696a5;
+    --border: #223040;
+    --input: #0c141c;
+    --brand: #e5b83a;
+    --brand-fg: #14202b;
+    --good: #35d08a;
+    --bad: #ff6b7b;
   }
 }
 
+/* ---------- Manual override (for the future toggle button) ---------- */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b1118;
+  --card: #121b25;
+  --fg: #e9eef3;
+  --muted: #8696a5;
+  --border: #223040;
+  --input: #0c141c;
+  --brand: #e5b83a;
+  --brand-fg: #14202b;
+  --good: #35d08a;
+  --bad: #ff6b7b;
+}
+
+/* ---------- Tailwind වලට වර්ණ නම් ඉගැන්වීම ---------- */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-brand: var(--brand);
+  --color-brand-fg: var(--brand-fg);
+  --color-good: var(--good);
+  --color-bad: var(--bad);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-geist-sans), system-ui, "Noto Sans Sinhala", sans-serif;
 }
