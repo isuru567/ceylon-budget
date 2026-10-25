@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 export default function TestPage() {
-  const [msg, setMsg] = useState("පරීක්ෂා කරමින්...");
+  const [msg, setMsg] = useState("Seraching...");
 
   useEffect(() => {
     const supabase = createClient();
@@ -13,7 +13,7 @@ export default function TestPage() {
       .select("*")
       .then(({ data, error }) => {
         if (error) setMsg("❌ Error: " + error.message);
-        else setMsg("✅ Supabase සම්බන්ධයි! බිල් ගණන: " + data.length);
+        else setMsg("✅ Supabase Connected! Number of Bills: " + data.length);
       });
   }, []);
 
