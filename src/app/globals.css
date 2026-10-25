@@ -47,7 +47,7 @@
   --bad: #ff6b7b;
 }
 
-/* ---------- Tailwind වලට වර්ණ නම් ඉගැන්වීම ---------- */
+/* ---------- color codes ---------- */
 @theme inline {
   --color-bg: var(--bg);
   --color-card: var(--card);
