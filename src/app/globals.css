@@ -66,3 +66,16 @@ body {
   color: var(--fg);
   font-family: var(--font-geist-sans), system-ui, "Noto Sans Sinhala", sans-serif;
 }
+
+/* Buttons show a hand cursor (Tailwind v4 removed it by default) */
+button:not(:disabled),
+select {
+  cursor: pointer;
+}
+
+/* Respect people who turn animations off in their device settings */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
