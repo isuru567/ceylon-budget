@@ -1,5 +1,8 @@
 "use client";
 
+"use client";
+/* eslint-disable @next/next/no-img-element -- bill photos are signed URLs and local previews, so next/image is not needed */
+
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -189,7 +192,7 @@ export default function Dashboard() {
     setLoading(false);
   }, [supabase, router, year, month]);
 
-  useEffect(() => {
+    useEffect(() => {
     load();
   }, [load]);
 
