@@ -192,7 +192,9 @@ export default function Dashboard() {
     setLoading(false);
   }, [supabase, router, year, month]);
 
-    useEffect(() => {
+     useEffect(() => {
+    // load() only sets state after its first await, so this does not cascade.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     load();
   }, [load]);
 
